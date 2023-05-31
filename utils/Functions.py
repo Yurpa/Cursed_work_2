@@ -1,8 +1,9 @@
 import json
 import datetime
 
-#with open('../operations.json', 'r') as data:
-    #list_of_logs = json.load(data)
+with open('../operations.json', 'r', encoding="utf-8") as data:
+    main_data = json.load(data)
+
 
 def Checkout(list):
     '''Beta ver of printing the last 5 op
@@ -27,7 +28,6 @@ def Censored(card1):
     finale_censored = " ".join([uncensored_part, censored_part1])
     return finale_censored
 
-c1 = Censored('Visa Gold 3589276410671603')
-print(c1)
+
 
 
