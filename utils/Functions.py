@@ -28,7 +28,6 @@ def Censored(card1):
     finale_censored = " ".join([uncensored_part, censored_part1])
     return finale_censored
 
-c1 = Censored('Visa Gold 3589276410671603')
-print(c1)
+
 
 
