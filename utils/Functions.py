@@ -1,8 +1,9 @@
 import json
 import datetime
 
-#with open('../operations.json', 'r') as data:
-    #list_of_logs = json.load(data)
+with open('../operations.json', 'r', encoding="utf-8") as data:
+    main_data = json.load(data)
+
 
 def Checkout(list):
     '''Beta ver of printing the last 5 op
