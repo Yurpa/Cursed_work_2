@@ -1,22 +1,30 @@
 import json
-import datetime
+from datetime import datetime, date, timedelta
 
 with open('../operations.json', 'r', encoding="utf-8") as data:
-    main_data = json.load(data)
+    operations_data = json.load(data)
 
-
-def Checkout(list):
-    '''Beta ver of printing the last 5 op
-    does not work yet'''
-    list_of_executed_op = []
-    for item in list:
-        if item["state"] == "EXECUTED":
-            list_of_executed_op.append(item["id"])
-            print(item["date"].strftime("%Y/%m/%d %H/%M/%S"))
+def Checkout():
+    timelist = []
+    checkeddata = []
+    doublechecked = []
+    for i in operations_data:
+        if i != {} and i['state'] == "EXECUTED":
+            datetime_str = i['date']
+            timelist.append(datetime_str)
+    timelist.sort()
+    for item in timelist[-5:]:
+        checkeddata.append(item)
+    for item in operations_data:
+        if item != {} and item['date'] in checkeddata:
+            doublechecked.append(item['id'])
+    return doublechecked
 
 def Censored(card1):
     '''Function which censores the card digits
      working func'''
+    if card1 == None:
+        return 'Данные отсутствуют'
     card1 = card1.split()
     uncensored_part = " ".join(card1[:-1])
     if 'Счет' in uncensored_part:
@@ -28,6 +36,17 @@ def Censored(card1):
     finale_censored = " ".join([uncensored_part, censored_part1])
     return finale_censored
 
+def last_struggle():
+    checked = Checkout()
+    for data in operations_data:
+        if data != {} and data['id'] in checked:
+            if data['description'] == "Открытие вклада":
+                card1 = None
+            else: card1 = data['from']
+            card2 = data['to']
+            datetime_str = data['date']
+            datetime_obj = datetime.strptime(datetime_str, '%Y-%m-%dT%H:%M:%S.%f')
+            print(f"{datetime_obj.date().strftime('%d.%m.%Y')} {data['description']} \n{Censored(card1)} ==> {Censored(card2)}")
+            print(f"{data['operationAmount']['amount']} {data['operationAmount']['currency']['name']}")
 
-
-
+last_struggle()
