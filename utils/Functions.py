@@ -1,9 +1,8 @@
 import json
 from datetime import datetime, date, timedelta
 
-with open('../operations.json', 'r', encoding="utf-8") as data:
+with open('operations.json', 'r', encoding="utf-8") as data:
     operations_data = json.load(data)
-
 def Checkout():
     timelist = []
     checkeddata = []
@@ -19,7 +18,6 @@ def Checkout():
         if item != {} and item['date'] in checkeddata:
             doublechecked.append(item['id'])
     return doublechecked
-
 def Censored(card1):
     '''Function which censores the card digits
      working func'''
@@ -35,7 +33,6 @@ def Censored(card1):
         censored_part1 = " ".join([card1[-1][i:i+4] for i in range(0, len(card1[-1]), 4)])
     finale_censored = " ".join([uncensored_part, censored_part1])
     return finale_censored
-
 def last_struggle():
     checked = Checkout()
     for data in operations_data:
@@ -49,4 +46,3 @@ def last_struggle():
             print(f"{datetime_obj.date().strftime('%d.%m.%Y')} {data['description']} \n{Censored(card1)} ==> {Censored(card2)}")
             print(f"{data['operationAmount']['amount']} {data['operationAmount']['currency']['name']}")
 
-last_struggle()
