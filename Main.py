@@ -1,4 +1,7 @@
 import json
+from utils.Functions import last_struggle
 
-with open('operations.json', 'rt') as main_data:
-    List_of_logs = json.dump
+last_struggle()
+
+
+
